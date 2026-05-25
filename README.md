@@ -48,18 +48,6 @@ http://localhost:8080/auth
 
 ## Como correr el proyecto
 
-Se tiene que abrir dos terminales en la misma carpeta:
-
-```bash
-C:\Users\Damy\Desktop\TareaReact\TareaReact
-```
-
-Pero tambien se puede entrar desde Git Bash con:
-
-```bash
-cd ~/Desktop/TareaReact/TareaReact
-```
-
 ## Terminal 1: correr el backend
 
 Primero se debe instalar las dependencias en caso de no tenerlas:
@@ -92,7 +80,7 @@ En otra terminal, dentro de la misma carpeta del proyecto, se ejecuta:
 npm run dev
 ```
 
-y Vite mostrara una URL. Se abre esta:
+y Vite mostrara una URL. Y se tiene que abrir esta:
 
 ```bash
 http://127.0.0.1:5173

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const PORT = 8080;
+const PORT = Number(process.env.PORT) || 8080;
 const JWT_SECRET = 'tarea-react-secret-key';
 const TOKEN_EXPIRATION_SECONDS = 60 * 60 * 2;
 
@@ -232,4 +232,17 @@ server.listen(PORT, () => {
   console.log(`Backend listo en http://localhost:${PORT}/auth`);
   console.log('Usuario de prueba: admin');
   console.log('Contrasena de prueba: 123456');
+});
+
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`El puerto ${PORT} ya esta ocupado.`);
+    console.error('Probablemente el backend ya esta corriendo en otra terminal.');
+    console.error('Solucion 1: cierra la terminal anterior o detén el proceso que usa ese puerto.');
+    console.error('Solucion 2: corre el backend en otro puerto con:');
+    console.error('PowerShell: $env:PORT=8081; npm run server');
+    process.exit(1);
+  }
+
+  throw error;
 });
