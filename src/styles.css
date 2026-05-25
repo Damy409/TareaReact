@@ -1,0 +1,52 @@
+html {
+  background: #f6f8fb;
+}
+
+body {
+  min-width: 320px;
+}
+
+.login-shell {
+  align-items: center;
+  display: flex !important;
+  min-height: 100vh;
+  padding-bottom: 32px;
+  padding-top: 32px;
+}
+
+.login-panel,
+.section-panel {
+  border: 1px solid #e2e8f0;
+  width: 100%;
+}
+
+.login-panel {
+  padding: 32px;
+}
+
+.section-panel {
+  padding: 24px;
+}
+
+.top-bar {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.courses-shell {
+  padding-bottom: 32px;
+  padding-top: 32px;
+}
+
+.loading-state {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 180px;
+}
+
+@media (max-width: 600px) {
+  .login-panel,
+  .section-panel {
+    padding: 20px;
+  }
+}
