@@ -43,7 +43,7 @@ function getCourseDescription(course) {
 }
 
 function CourseForm({ onCreated }) {
-  const [course, setCourse] = useState({ name: '', animal: '', description: '' });
+  const [course, setCourse] = useState({ name: '', area: '', description: '' });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -62,11 +62,11 @@ function CourseForm({ onCreated }) {
         method: 'POST',
         body: JSON.stringify({
           name: course.name.trim(),
-          animal: course.animal.trim(),
+          area: course.area.trim(),
           description: course.description.trim(),
         }),
       });
-      setCourse({ name: '', animal: '', description: '' });
+      setCourse({ name: '', area: '', description: '' });
       onCreated(createdCourse);
     } catch (err) {
       setError(err.message || 'No fue posible crear el curso.');
@@ -101,11 +101,11 @@ function CourseForm({ onCreated }) {
             <TextField
               disabled={saving}
               fullWidth
-              label="Animal"
-              name="animal"
+              label="Area academica"
+              name="area"
               onChange={handleChange}
               required
-              value={course.animal}
+              value={course.area}
             />
             <TextField
               disabled={saving}
@@ -224,7 +224,7 @@ export default function CoursesPage() {
                                 <Typography fontWeight={700}>{getCourseTitle(course)}</Typography>
                                 <Chip
                                   color="primary"
-                                  label={course.animal || 'Sin animal'}
+                                  label={course.area || course.animal || 'Sin area'}
                                   size="small"
                                   variant="outlined"
                                 />

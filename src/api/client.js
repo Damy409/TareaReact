@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:8080/auth';
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV ? 'http://localhost:9081/auth' : `${window.location.origin}/auth`);
 
 async function readResponse(response) {
   const contentType = response.headers.get('content-type') || '';

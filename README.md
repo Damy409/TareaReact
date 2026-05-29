@@ -1,24 +1,25 @@
-# Tarea React: Login, JWT y Gestion de Cursos
+# Tarea React + Spring Boot: Login, JWT y Gestion de Cursos
 
 ## Damy Villegas - A00398942
 
-Este proyecto implementa la tarea completa del PDF:
+Este proyecto contiene:
 
+- Frontend en React + Vite.
+- Backend en Java con Spring Boot.
+- Compilacion con Gradle.
 - Login con usuario y contrasena.
 - Token JWT guardado en `localStorage`.
 - Rutas protegidas con `useContext`.
-- Lista de cursos consumida desde un backend.
-- Formulario con Material UI para agregar cursos.
-- Backend local de prueba con usuario inicial cargado desde `server/data.sql`.
-
-La parte visual esta hecha en React. El backend es minimo y solo existe para que la tarea pueda probarse completa sin depender de otro servidor.
+- Lista de materias universitarias consumida desde el backend.
+- Formulario con Material UI para agregar materias.
+- Archivo `application.properties` para configurar el puerto y el JWT.
 
 ## Usuario de prueba
 
 El usuario inicial esta definido en:
 
 ```bash
-server/data.sql
+src/main/resources/data.sql
 ```
 
 Credenciales:
@@ -28,117 +29,122 @@ Usuario: admin
 Contrasena: 123456
 ```
 
-Con ese usuario y esta contraseña se puede ingresar al login, para visualizar las demas pantallas de los cursos.
-
 ## Rutas principales
 
-Frontend:
+Cuando se ejecuta Spring Boot, el proyecto queda en:
 
 ```bash
-http://127.0.0.1:5173
-http://127.0.0.1:5173/login
-http://127.0.0.1:5173/courses
+http://localhost:9081
+http://localhost:9081/login
+http://localhost:9081/courses
 ```
 
-Backend:
+El API queda en:
 
 ```bash
-http://localhost:8080/auth
+http://localhost:9081/auth/api/auth/login
+http://localhost:9081/auth/api/courses
 ```
 
-## Como correr el proyecto
+## Como correr en desarrollo
 
-## Terminal 1: correr el backend
+Terminal 1: ejecutar Spring Boot.
 
-Primero se debe instalar las dependencias en caso de no tenerlas:
+```bash
+./gradlew bootRun
+```
+
+En Windows tambien se puede usar:
+
+```bash
+gradlew.bat bootRun
+```
+
+Terminal 2: ejecutar React con Vite.
 
 ```bash
 npm install
-```
-
-Posteriormente se corre el backend:
-
-```bash
-npm run server
-```
-
-El resultado debe verse similar a esto: 
-
-```bash
-Backend listo en http://localhost:8080/auth
-Usuario de prueba: admin
-Contrasena de prueba: 123456
-```
-
-La terminal se la deja abierta.
-
-## Terminal 2: correr el frontend
-
-En otra terminal, dentro de la misma carpeta del proyecto, se ejecuta:
-
-```bash
 npm run dev
 ```
 
-y Vite mostrara una URL. Y se tiene que abrir esta:
+Luego abrir:
 
 ```bash
 http://127.0.0.1:5173
 ```
 
-Si se abre desde la raiz, la aplicacion nos manda automaticamente al login:
+El frontend en desarrollo consume el backend en:
 
 ```bash
-http://127.0.0.1:5173/login
+http://localhost:9081/auth
+```
+
+## Como generar el JAR
+
+Este es el comando equivalente al que usa el profesor:
+
+```bash
+./gradlew clean build
+```
+
+Si se quiere compilar sin pruebas:
+
+```bash
+./gradlew clean build -x test
+```
+
+El archivo generado queda en:
+
+```bash
+build/libs/auth-0.0.1-SNAPSHOT.jar
+```
+
+Ese `.jar` ya incluye el frontend compilado dentro del backend Spring Boot.
+
+## Como ejecutar el JAR
+
+```bash
+java -jar build/libs/auth-0.0.1-SNAPSHOT.jar
+```
+
+Luego abrir:
+
+```bash
+http://localhost:9081
+```
+
+## Configuracion
+
+El archivo principal de configuracion esta en:
+
+```bash
+src/main/resources/application.properties
+```
+
+Contenido importante:
+
+```properties
+spring.application.name=auth
+server.port=9081
+app.jwt.secret=tarea-react-secret-key
+app.jwt.expiration-seconds=7200
 ```
 
 ## Flujo de uso
 
-1. Correr el backend con `npm run server`.
-2. Correr el frontend con `npm run dev`.
-3. Abrir `http://127.0.0.1:5173/login`.
-4. Escribir las credenciales:
-
-```bash
-Usuario: admin
-Contrasena: 123456
-```
-
-5. Presionar `Entrar`.
-6. Si el login es correcto, React guarda el JWT en `localStorage`.
-7. Luego se entra a `/courses`.
-8. En `/courses` se puede ver la lista de cursos.
-9. En el formulario se puede agregar un curso nuevo.
-10. El curso nuevo aparece en la lista inmediatamente.
-
-## Seguridad con JWT
-
-La ruta `/courses` esta protegida en el frontend por:
-
-```bash
-src/auth/ProtectedRoute.jsx
-```
-
-Si no hay token en `localStorage`, no se puede entrar a la pantalla de cursos y la aplicacion te devuelve al login.
-
-El backend tambien valida el JWT. Los endpoints de cursos requieren este header:
-
-```bash
-Authorization: Bearer TOKEN
-```
-
-Ese header se agrega automaticamente desde:
-
-```bash
-src/api/client.js
-```
+1. Ejecutar Spring Boot con `./gradlew bootRun` o con el `.jar`.
+2. Abrir `/login`.
+3. Iniciar sesion con `admin` y `123456`.
+4. Entrar a `/courses`.
+5. Revisar las materias universitarias.
+6. Agregar una materia nueva desde el formulario.
 
 ## Endpoints del backend
 
 Login:
 
 ```bash
-POST http://localhost:8080/auth/api/auth/login
+POST http://localhost:9081/auth/api/auth/login
 ```
 
 Body:
@@ -153,52 +159,69 @@ Body:
 Listar cursos:
 
 ```bash
-GET http://localhost:8080/auth/api/courses
+GET http://localhost:9081/auth/api/courses
 ```
 
 Crear curso:
 
 ```bash
-POST http://localhost:8080/auth/api/courses
+POST http://localhost:9081/auth/api/courses
 ```
 
 Body:
 
 ```json
 {
-  "name": "Curso de reptiles",
-  "animal": "Reptil",
-  "description": "Cuidados basicos para reptiles domesticos."
+  "name": "Computacion en Internet 2",
+  "area": "Ingenieria de sistemas",
+  "description": "Materia enfocada en aplicaciones web, consumo de APIs, autenticacion y despliegue."
 }
 ```
 
-## Donde esta cada parte
+Los endpoints de cursos requieren:
+
+```bash
+Authorization: Bearer TOKEN
+```
+
+## Estructura importante
 
 Frontend:
 
 ```bash
 src/
   api/
-    client.js
   auth/
-    AuthContext.jsx
-    ProtectedRoute.jsx
   pages/
-    LoginPage.jsx
-    CoursesPage.jsx
   App.jsx
   main.jsx
   styles.css
 ```
 
-Backend:
+Backend Spring Boot:
 
 ```bash
-server/
-  data.sql
-  index.js
+src/main/java/com/damy/tareareact/
+  controller/
+  dto/
+  model/
+  service/
+  config/
+  TareaReactApplication.java
 ```
 
-## Nota importante
+Recursos:
 
-Los cursos que se agregen se guardan en memoria mientras el backend esta corriendo. Si se cierra `npm run server` y luego se vuelve a abrir, se cargaran los datos otra vez.
+```bash
+src/main/resources/
+  application.properties
+  data.sql
+```
+
+## Despliegue
+
+El paso a paso completo esta en:
+
+```bash
+README_DESPLIEGUE.md
+```
