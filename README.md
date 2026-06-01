@@ -113,22 +113,6 @@ Luego abrir:
 http://localhost:9081
 ```
 
-## Configuracion
-
-El archivo principal de configuracion esta en:
-
-```bash
-src/main/resources/application.properties
-```
-
-Contenido importante:
-
-```properties
-spring.application.name=auth
-server.port=9081
-app.jwt.secret=tarea-react-secret-key
-app.jwt.expiration-seconds=7200
-```
 
 ## Flujo de uso
 
@@ -139,50 +123,6 @@ app.jwt.expiration-seconds=7200
 5. Revisar las materias universitarias.
 6. Agregar una materia nueva desde el formulario.
 
-## Endpoints del backend
-
-Login:
-
-```bash
-POST http://localhost:9081/auth/api/auth/login
-```
-
-Body:
-
-```json
-{
-  "username": "admin",
-  "password": "123456"
-}
-```
-
-Listar cursos:
-
-```bash
-GET http://localhost:9081/auth/api/courses
-```
-
-Crear curso:
-
-```bash
-POST http://localhost:9081/auth/api/courses
-```
-
-Body:
-
-```json
-{
-  "name": "Computacion en Internet 2",
-  "area": "Ingenieria de sistemas",
-  "description": "Materia enfocada en aplicaciones web, consumo de APIs, autenticacion y despliegue."
-}
-```
-
-Los endpoints de cursos requieren:
-
-```bash
-Authorization: Bearer TOKEN
-```
 
 ## Estructura importante
 
@@ -218,10 +158,3 @@ src/main/resources/
   data.sql
 ```
 
-## Despliegue
-
-El paso a paso completo esta en:
-
-```bash
-README_DESPLIEGUE.md
-```
