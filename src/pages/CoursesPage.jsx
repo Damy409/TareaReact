@@ -1,6 +1,3 @@
-import AddIcon from '@mui/icons-material/Add';
-import LogoutIcon from '@mui/icons-material/Logout';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import {
   Alert,
   AppBar,
@@ -25,6 +22,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { request } from '../api/client.js';
 import { useAuth } from '../auth/AuthContext.jsx';
+import { AddIcon, LogoutIcon, RefreshIcon } from '../components/Icons.jsx';
 
 function normalizeCourses(data) {
   if (Array.isArray(data)) {

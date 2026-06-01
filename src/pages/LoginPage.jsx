@@ -1,4 +1,3 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
   Alert,
   Avatar,
@@ -14,6 +13,7 @@ import {
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext.jsx';
+import { LockIcon } from '../components/Icons.jsx';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ export default function LoginPage() {
       <Paper elevation={0} className="login-panel">
         <Stack spacing={3} alignItems="center">
           <Avatar sx={{ bgcolor: 'primary.main' }}>
-            <LockOutlinedIcon />
+            <LockIcon />
           </Avatar>
           <Box textAlign="center">
             <Typography component="h1" variant="h5" fontWeight={700}>
